@@ -1,0 +1,52 @@
+{
+  "name": "sup-language",
+  "displayName": "Sup Language Support",
+  "description": "Syntax highlighting and language support for the Sup programming language",
+  "version": "0.2.0",
+  "publisher": "sup-lang",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "icon": "icon.png",
+  "contributes": {
+    "languages": [
+      {
+        "id": "sup",
+        "aliases": [
+          "Sup",
+          "sup"
+        ],
+        "extensions": [
+          ".sup"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icon.png",
+          "dark": "./icon.png"
+        }
+      }
+    ],
+    "iconThemes": [
+      {
+        "id": "sup-icons",
+        "label": "Sup File Icons",
+        "path": "./fileicons/sup-icon-theme.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "sup",
+        "scopeName": "source.sup",
+        "path": "./syntaxes/sup.tmLanguage.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sup-lang/sup"
+  },
+  "license": "MIT"
+}

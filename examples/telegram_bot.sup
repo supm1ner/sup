@@ -1,0 +1,156 @@
+# Простой Telegram бот на языке Sup
+# Этот бот отвечает на сообщения пользователей
+
+# Конфигурация бота
+const BOT_TOKEN = "8274815970:AAHhhXwEML6NUyfizM1VXQzsdBq77ThfJbU"
+const API_URL = "https://api.telegram.org/bot"
+
+# Структура для хранения обновлений
+var last_update_id = 0
+
+# Функция для получения обновлений от Telegram API
+func getUpdates() -> int {
+    var url = API_URL + BOT_TOKEN + "/getUpdates"
+    
+    # Добавляем offset для получения только новых сообщений
+    if last_update_id > 0 {
+        url = url + "?offset=" + str(last_update_id)
+    }
+    
+    # Здесь должен быть HTTP запрос
+    # В реальной реализации нужна библиотека для HTTP
+    print("Получение обновлений от: " + url)
+    
+    return 0
+}
+
+# Функция для отправки сообщения
+func sendMessage(chat_id: int, text: string) -> int {
+    var url = API_URL + BOT_TOKEN + "/sendMessage"
+    
+    print("Отправка сообщения в чат " + str(chat_id))
+    print("Текст: " + text)
+    
+    # Здесь должен быть HTTP POST запрос
+    # В реальной реализации нужна библиотека для HTTP
+    
+    return 0
+}
+
+# Функция для обработки команды /start
+func handleStart(chat_id: int) -> int {
+    var welcome_message = "Привет! Я простой бот на языке Sup!"
+    sendMessage(chat_id, welcome_message)
+    return 0
+}
+
+# Функция для обработки команды /help
+func handleHelp(chat_id: int) -> int {
+    var help_text = "Доступные команды:\n/start - Начать работу\n/help - Показать помощь\n/echo <текст> - Повторить текст"
+    sendMessage(chat_id, help_text)
+    return 0
+}
+
+# Функция для обработки команды /echo
+func handleEcho(chat_id: int, message: string) -> int {
+    var response = "Вы сказали: " + message
+    sendMessage(chat_id, response)
+    return 0
+}
+
+# Функция для обработки текстового сообщения
+func handleMessage(chat_id: int, text: string) -> int {
+    # Проверяем, является ли сообщение командой
+    if text == "/start" {
+        handleStart(chat_id)
+        return 0
+    }
+    
+    if text == "/help" {
+        handleHelp(chat_id)
+        return 0
+    }
+    
+    # Проверяем команду /echo
+    var echo_prefix = "/echo "
+    # В реальной реализации нужна функция для проверки префикса
+    # if text.startsWith(echo_prefix) {
+    #     var message = text.substring(6)
+    #     handleEcho(chat_id, message)
+    #     return 0
+    # }
+    
+    # Если это не команда, просто отвечаем
+    var response = "Получено сообщение: " + text
+    sendMessage(chat_id, response)
+    
+    return 0
+}
+
+# Функция для обработки одного обновления
+func processUpdate(update_id: int, chat_id: int, text: string) -> int {
+    print("Обработка обновления #" + str(update_id))
+    
+    # Обновляем last_update_id
+    last_update_id = update_id + 1
+    
+    # Обрабатываем сообщение
+    handleMessage(chat_id, text)
+    
+    return 0
+}
+
+# Главный цикл бота
+func botLoop() -> int {
+    print("Бот запущен! Ожидание сообщений...")
+    
+    var running = true
+    var iteration = 0
+    
+    while iteration < 100 {
+        print("\n--- Итерация " + str(iteration) + " ---")
+        
+        # Получаем обновления
+        getUpdates()
+        
+        # В реальной реализации здесь был бы парсинг JSON
+        # и обработка каждого обновления
+        
+        # Пример обработки (в реальности данные приходят из API)
+        if iteration == 5 {
+            print("Симуляция: получено сообщение /start")
+            processUpdate(1, 12345, "/start")
+        }
+        
+        if iteration == 10 {
+            print("Симуляция: получено сообщение /help")
+            processUpdate(2, 12345, "/help")
+        }
+        
+        if iteration == 15 {
+            print("Симуляция: получено сообщение 'Привет!'")
+            processUpdate(3, 12345, "Привет!")
+        }
+        
+        # Небольшая задержка между запросами
+        # В реальной реализации нужна функция sleep
+        
+        iteration = iteration + 1
+    }
+    
+    print("\nБот остановлен")
+    return 0
+}
+
+# Главная функция
+func main() -> int {
+    print("=== Telegram Bot на языке Sup ===")
+    print("Версия: 1.0")
+    print("Токен: " + BOT_TOKEN)
+    print("")
+    
+    # Запускаем основной цикл бота
+    botLoop()
+    
+    return 0
+}

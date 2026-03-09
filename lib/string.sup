@@ -1,0 +1,75 @@
+# Библиотека для работы со строками
+# Sup Standard Library - String Module
+
+# Получить длину строки (симуляция)
+func strlen(s: string) -> int {
+    # В реальной реализации нужна поддержка .length
+    # Пока возвращаем фиксированное значение
+    return 10
+}
+
+# Повторить строку n раз
+func repeat(s: string, n: int) -> string {
+    var result = ""
+    var i = 0
+    
+    while i < n {
+        result = result + s
+        i = i + 1
+    }
+    
+    return result
+}
+
+# Создать строку из символа, повторенного n раз
+func fill(character: string, count: int) -> string {
+    return repeat(character, count)
+}
+
+# Создать разделитель
+func separator(character: string, length: int) -> string {
+    return repeat(character, length)
+}
+
+# Форматирование: добавить отступ слева
+func padLeft(s: string, width: int, padChar: string) -> string {
+    # Упрощенная версия - добавляем фиксированное количество символов
+    var padding = repeat(padChar, width)
+    return padding + s
+}
+
+# Форматирование: добавить отступ справа
+func padRight(s: string, width: int, padChar: string) -> string {
+    var padding = repeat(padChar, width)
+    return s + padding
+}
+
+# Создать рамку вокруг текста
+func box(text: string, width: int) -> string {
+    var top = "╔" + repeat("═", width) + "╗"
+    var middle = "║ " + text + " ║"
+    var bottom = "╚" + repeat("═", width) + "╝"
+    
+    print(top)
+    print(middle)
+    print(bottom)
+    
+    return text
+}
+
+# Создать заголовок
+func header(text: string) -> string {
+    var line = repeat("=", 50)
+    print(line)
+    print(text)
+    print(line)
+    return text
+}
+
+# Создать подзаголовок
+func subheader(text: string) -> string {
+    var line = repeat("-", 40)
+    print(text)
+    print(line)
+    return text
+}

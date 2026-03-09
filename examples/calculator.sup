@@ -1,0 +1,168 @@
+# Калькулятор на языке Sup
+# Поддерживает базовые арифметические операции
+
+# Функция сложения
+func add(a: float, b: float) -> float {
+    return a + b
+}
+
+# Функция вычитания
+func subtract(a: float, b: float) -> float {
+    return a - b
+}
+
+# Функция умножения
+func multiply(a: float, b: float) -> float {
+    return a * b
+}
+
+# Функция деления
+func divide(a: float, b: float) -> float {
+    if b == 0 {
+        print("Ошибка: деление на ноль!")
+        return 0.0
+    }
+    return a / b
+}
+
+# Функция возведения в степень (через умножение)
+func power(base: float, exp: int) -> float {
+    var result = 1.0
+    var i = 0
+    
+    while i < exp {
+        result = result * base
+        i = i + 1
+    }
+    
+    return result
+}
+
+# Функция вычисления процента
+func percentage(value: float, percent: float) -> float {
+    return value * percent / 100.0
+}
+
+# Функция для демонстрации всех операций
+func demonstrateCalculator() -> int {
+    print("=== Демонстрация калькулятора ===")
+    print("")
+    
+    var num1 = 15.0
+    var num2 = 3.0
+    
+    print("Числа: " + str(num1) + " и " + str(num2))
+    print("")
+    
+    # Сложение
+    var sum = add(num1, num2)
+    print("Сложение: " + str(num1) + " + " + str(num2) + " = " + str(sum))
+    
+    # Вычитание
+    var diff = subtract(num1, num2)
+    print("Вычитание: " + str(num1) + " - " + str(num2) + " = " + str(diff))
+    
+    # Умножение
+    var prod = multiply(num1, num2)
+    print("Умножение: " + str(num1) + " * " + str(num2) + " = " + str(prod))
+    
+    # Деление
+    var quot = divide(num1, num2)
+    print("Деление: " + str(num1) + " / " + str(num2) + " = " + str(quot))
+    
+    print("")
+    
+    # Возведение в степень
+    var base = 2.0
+    var exp = 5
+    var pow_result = power(base, exp)
+    print("Степень: " + str(base) + "^" + str(exp) + " = " + str(pow_result))
+    
+    # Процент
+    var value = 200.0
+    var percent = 15.0
+    var perc_result = percentage(value, percent)
+    print("Процент: " + str(percent) + "% от " + str(value) + " = " + str(perc_result))
+    
+    print("")
+    
+    # Деление на ноль
+    print("Попытка деления на ноль:")
+    var zero_div = divide(10.0, 0.0)
+    
+    return 0
+}
+
+# Интерактивный режим калькулятора
+func interactiveMode() -> int {
+    print("\n=== Интерактивный калькулятор ===")
+    print("Примеры вычислений:")
+    print("")
+    
+    # Пример 1: Расчет скидки
+    var price = 1000.0
+    var discount = 20.0
+    var discount_amount = percentage(price, discount)
+    var final_price = subtract(price, discount_amount)
+    
+    print("Товар стоит " + str(price) + " руб.")
+    print("Скидка: " + str(discount) + "%")
+    print("Сумма скидки: " + str(discount_amount) + " руб.")
+    print("Итоговая цена: " + str(final_price) + " руб.")
+    print("")
+    
+    # Пример 2: Расчет площади
+    var length = 5.0
+    var width = 3.0
+    var area = multiply(length, width)
+    
+    print("Площадь прямоугольника:")
+    print("Длина: " + str(length) + " м")
+    print("Ширина: " + str(width) + " м")
+    print("Площадь: " + str(area) + " м²")
+    print("")
+    
+    # Пример 3: Средняя скорость
+    var distance = 150.0
+    var time = 2.5
+    var speed = divide(distance, time)
+    
+    print("Расчет средней скорости:")
+    print("Расстояние: " + str(distance) + " км")
+    print("Время: " + str(time) + " ч")
+    print("Средняя скорость: " + str(speed) + " км/ч")
+    print("")
+    
+    # Пример 4: Сложные вычисления
+    var a = 10.0
+    var b = 5.0
+    var c = 2.0
+    
+    var result1 = add(multiply(a, b), c)
+    print("Сложное вычисление: (" + str(a) + " * " + str(b) + ") + " + str(c) + " = " + str(result1))
+    
+    var result2 = divide(add(a, b), c)
+    print("Сложное вычисление: (" + str(a) + " + " + str(b) + ") / " + str(c) + " = " + str(result2))
+    
+    return 0
+}
+
+# Главная функция
+func main() -> int {
+    print("╔════════════════════════════════════╗")
+    print("║   Калькулятор на языке Sup v1.0   ║")
+    print("╚════════════════════════════════════╝")
+    print("")
+    
+    # Демонстрация базовых операций
+    demonstrateCalculator()
+    
+    # Интерактивные примеры
+    interactiveMode()
+    
+    print("╔════════════════════════════════════╗")
+    print("║     Спасибо за использование!     ║")
+    print("╚════════════════════════════════════╝")
+    
+    return 0
+}

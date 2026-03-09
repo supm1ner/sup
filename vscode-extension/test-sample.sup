@@ -1,0 +1,152 @@
+# Sample Sup program to test syntax highlighting
+# This file demonstrates all language features
+
+# Import statement
+import math
+from utils import helper
+
+# Constants and variables
+const PI = 3.14159
+var counter = 0
+
+# Function with parameters and return type
+func add(a: int, b: int) -> int {
+    return a + b
+}
+
+# Function with float parameters
+func multiply(x: float, y: float) -> float {
+    var result = x * y
+    return result
+}
+
+# Function with string
+func greet(name: string) -> string {
+    var message = "Hello, " + name + "!"
+    return message
+}
+
+# Function with boolean logic
+func isEven(n: int) -> bool {
+    if n % 2 == 0 {
+        return true
+    } else {
+        return false
+    }
+}
+
+# Function with control flow
+func factorial(n: int) -> int {
+    if n <= 1 {
+        return 1
+    } else {
+        return n * factorial(n - 1)
+    }
+}
+
+# Function with loops
+func sumRange(start: int, end: int) -> int {
+    var sum = 0
+    
+    # While loop
+    while start <= end {
+        sum += start
+        start++
+    }
+    
+    return sum
+}
+
+# Function with for loop
+func printNumbers(max: int) -> void {
+    for i in range(0, max) {
+        print(i)
+        
+        if i == 5 {
+            break
+        }
+        
+        if i % 2 == 0 {
+            continue
+        }
+    }
+}
+
+# Function with comparison operators
+func compare(a: int, b: int) -> string {
+    if a > b {
+        return "a is greater"
+    } elif a < b {
+        return "b is greater"
+    } else {
+        return "equal"
+    }
+}
+
+# Function with logical operators
+func checkConditions(x: int, y: int) -> bool {
+    if x > 0 and y > 0 {
+        return true
+    } or x == 0 or y == 0 {
+        return false
+    }
+    
+    return not (x < 0 and y < 0)
+}
+
+# Main function
+func main() -> int {
+    # Variable declarations
+    var x = 10
+    var y = 20.5
+    var name = "Sup"
+    var flag = true
+    var empty = null
+    
+    # Arithmetic operations
+    var sum = x + 5
+    var diff = x - 3
+    var product = x * 2
+    var quotient = x / 2
+    var remainder = x % 3
+    
+    # Increment/decrement
+    x++
+    y--
+    
+    # Compound assignment
+    x += 5
+    x -= 2
+    x *= 3
+    x /= 2
+    
+    # Function calls
+    var result1 = add(10, 20)
+    var result2 = multiply(2.5, 4.0)
+    var greeting = greet("World")
+    var even = isEven(42)
+    
+    # Comparison
+    if result1 == 30 {
+        print("Correct!")
+    }
+    
+    if result1 != 0 {
+        print("Not zero")
+    }
+    
+    if result1 >= 30 {
+        print("Greater or equal")
+    }
+    
+    if result1 <= 100 {
+        print("Less or equal")
+    }
+    
+    # Print results
+    print(greeting)
+    print(result1)
+    print(result2)
+    
+    return 0
+}

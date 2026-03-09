@@ -1,0 +1,19 @@
+# Math operations example
+
+func add(a: int, b: int) -> int {
+    return a + b
+}
+
+func multiply(x: float, y: float) -> float {
+    return x * y
+}
+
+func main() -> int {
+    var sum = add(5, 3)
+    var product = multiply(2.5, 4.0)
+    
+    print(sum)
+    print(product)
+    
+    return 0
+}

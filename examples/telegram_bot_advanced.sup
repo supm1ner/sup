@@ -1,0 +1,284 @@
+# Продвинутый Telegram бот на языке Sup
+# Бот-калькулятор с поддержкой команд
+
+# Конфигурация
+const BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
+const API_URL = "https://api.telegram.org/bot"
+
+# Глобальные переменные
+var last_update_id = 0
+var total_messages = 0
+var total_calculations = 0
+
+# ============================================
+# МАТЕМАТИЧЕСКИЕ ФУНКЦИИ
+# ============================================
+
+func calculate_add(a: float, b: float) -> float {
+    return a + b
+}
+
+func calculate_subtract(a: float, b: float) -> float {
+    return a - b
+}
+
+func calculate_multiply(a: float, b: float) -> float {
+    return a * b
+}
+
+func calculate_divide(a: float, b: float) -> float {
+    if b == 0.0 {
+        return 0.0
+    }
+    return a / b
+}
+
+func calculate_power(base: float, exp: int) -> float {
+    var result = 1.0
+    var i = 0
+    while i < exp {
+        result = result * base
+        i = i + 1
+    }
+    return result
+}
+
+# ============================================
+# TELEGRAM API ФУНКЦИИ
+# ============================================
+
+func getUpdates() -> int {
+    var url = API_URL + BOT_TOKEN + "/getUpdates"
+    
+    if last_update_id > 0 {
+        url = url + "?offset=" + str(last_update_id)
+    }
+    
+    print("[API] Запрос обновлений...")
+    return 0
+}
+
+func sendMessage(chat_id: int, text: string) -> int {
+    print("[BOT] → Чат " + str(chat_id) + ": " + text)
+    return 0
+}
+
+# ============================================
+# ОБРАБОТЧИКИ КОМАНД
+# ============================================
+
+func handleStart(chat_id: int) -> int {
+    var message = "🤖 Привет! Я бот-калькулятор на Sup!\n\n"
+    message = message + "Доступные команды:\n"
+    message = message + "/start - Начать работу\n"
+    message = message + "/help - Помощь\n"
+    message = message + "/calc - Калькулятор\n"
+    message = message + "/stats - Статистика\n"
+    message = message + "/about - О боте"
+    
+    sendMessage(chat_id, message)
+    return 0
+}
+
+func handleHelp(chat_id: int) -> int {
+    var message = "📚 Справка по командам:\n\n"
+    message = message + "🔢 Калькулятор:\n"
+    message = message + "Отправьте выражение вида:\n"
+    message = message + "• 5 + 3\n"
+    message = message + "• 10 - 4\n"
+    message = message + "• 6 * 7\n"
+    message = message + "• 20 / 4\n"
+    message = message + "• 2 ^ 8 (степень)\n\n"
+    message = message + "Или используйте /calc"
+    
+    sendMessage(chat_id, message)
+    return 0
+}
+
+func handleCalc(chat_id: int) -> int {
+    var message = "🧮 Примеры вычислений:\n\n"
+    
+    var result1 = calculate_add(15.0, 7.0)
+    message = message + "15 + 7 = " + str(result1) + "\n"
+    
+    var result2 = calculate_multiply(8.0, 9.0)
+    message = message + "8 × 9 = " + str(result2) + "\n"
+    
+    var result3 = calculate_divide(100.0, 4.0)
+    message = message + "100 ÷ 4 = " + str(result3) + "\n"
+    
+    var result4 = calculate_power(2.0, 10)
+    message = message + "2^10 = " + str(result4) + "\n"
+    
+    message = message + "\nОтправьте своё выражение!"
+    
+    sendMessage(chat_id, message)
+    total_calculations = total_calculations + 4
+    return 0
+}
+
+func handleStats(chat_id: int) -> int {
+    var message = "📊 Статистика бота:\n\n"
+    message = message + "Всего сообщений: " + str(total_messages) + "\n"
+    message = message + "Вычислений: " + str(total_calculations) + "\n"
+    message = message + "Последний update_id: " + str(last_update_id)
+    
+    sendMessage(chat_id, message)
+    return 0
+}
+
+func handleAbout(chat_id: int) -> int {
+    var message = "ℹ️ О боте:\n\n"
+    message = message + "Название: Sup Calculator Bot\n"
+    message = message + "Версия: 1.0\n"
+    message = message + "Язык: Sup Programming Language\n"
+    message = message + "Автор: Sup Compiler Team\n\n"
+    message = message + "Этот бот написан на языке Sup\n"
+    message = message + "и скомпилирован в C++!"
+    
+    sendMessage(chat_id, message)
+    return 0
+}
+
+# Обработка математических выражений
+func handleExpression(chat_id: int, text: string) -> int {
+    # Простая симуляция парсинга выражений
+    # В реальной реализации нужен полноценный парсер
+    
+    var result = 42.0
+    var response = "Результат: " + str(result)
+    
+    sendMessage(chat_id, response)
+    total_calculations = total_calculations + 1
+    return 0
+}
+
+# ============================================
+# ОСНОВНАЯ ЛОГИКА БОТА
+# ============================================
+
+func processMessage(chat_id: int, text: string) -> int {
+    total_messages = total_messages + 1
+    
+    print("[MSG] Получено: " + text)
+    
+    if text == "/start" {
+        handleStart(chat_id)
+        return 0
+    }
+    
+    if text == "/help" {
+        handleHelp(chat_id)
+        return 0
+    }
+    
+    if text == "/calc" {
+        handleCalc(chat_id)
+        return 0
+    }
+    
+    if text == "/stats" {
+        handleStats(chat_id)
+        return 0
+    }
+    
+    if text == "/about" {
+        handleAbout(chat_id)
+        return 0
+    }
+    
+    # Если не команда, пробуем вычислить
+    handleExpression(chat_id, text)
+    return 0
+}
+
+func processUpdate(update_id: int, chat_id: int, text: string) -> int {
+    print("\n[UPDATE #" + str(update_id) + "]")
+    last_update_id = update_id + 1
+    processMessage(chat_id, text)
+    return 0
+}
+
+func botLoop() -> int {
+    print("🤖 Бот запущен и готов к работе!")
+    print("Ожидание сообщений...")
+    print("💡 Для остановки бота нажмите Ctrl+C\n")
+    
+    var iteration = 0
+    var running = 1
+    
+    # Бесконечный цикл - бот работает постоянно
+    while running == 1 {
+        if iteration % 10 == 0 {
+            print("--- Итерация " + str(iteration) + " ---")
+        }
+        
+        getUpdates()
+        
+        # Симуляция входящих сообщений (для демонстрации)
+        # В реальном боте здесь будут настоящие сообщения из Telegram API
+        if iteration == 3 {
+            print("\n📨 Симуляция: пользователь отправил /start")
+            processUpdate(1, 12345, "/start")
+        }
+        
+        if iteration == 8 {
+            print("\n📨 Симуляция: пользователь отправил /calc")
+            processUpdate(2, 12345, "/calc")
+        }
+        
+        if iteration == 15 {
+            print("\n📨 Симуляция: пользователь отправил /stats")
+            processUpdate(3, 12345, "/stats")
+        }
+        
+        if iteration == 25 {
+            print("\n📨 Симуляция: пользователь отправил /about")
+            processUpdate(4, 12345, "/about")
+        }
+        
+        if iteration == 35 {
+            print("\n📨 Симуляция: пользователь отправил /help")
+            processUpdate(5, 12345, "/help")
+        }
+        
+        # Для демонстрации остановим после 50 итераций
+        # В реальном боте эту проверку нужно убрать
+        if iteration >= 50 {
+            print("\n⚠️  Достигнут лимит демонстрации (50 итераций)")
+            print("💡 В реальном боте эта проверка должна быть удалена")
+            running = 0
+        }
+        
+        iteration = iteration + 1
+    }
+    
+    print("\n🛑 Бот остановлен")
+    return 0
+}
+
+# ============================================
+# ГЛАВНАЯ ФУНКЦИЯ
+# ============================================
+
+func main() -> int {
+    print("╔═══════════════════════════════════════════╗")
+    print("║  Telegram Bot Calculator на языке Sup    ║")
+    print("╚═══════════════════════════════════════════╝")
+    print("")
+    print("Версия: 1.0")
+    print("Язык: Sup Programming Language")
+    print("")
+    
+    botLoop()
+    
+    print("")
+    print("╔═══════════════════════════════════════════╗")
+    print("║           Финальная статистика           ║")
+    print("╠═══════════════════════════════════════════╣")
+    print("║  Обработано сообщений: " + str(total_messages))
+    print("║  Выполнено вычислений: " + str(total_calculations))
+    print("╚═══════════════════════════════════════════╝")
+    
+    return 0
+}

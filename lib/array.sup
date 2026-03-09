@@ -1,0 +1,70 @@
+# Библиотека для работы с массивами
+# Sup Standard Library - Array Module
+
+# Сумма элементов массива (симуляция)
+func sum(arr: int, count: int) -> int {
+    # В будущем, когда будут массивы
+    var total = 0
+    var i = 0
+    
+    while i < count {
+        # total = total + arr[i]
+        i = i + 1
+    }
+    
+    return total
+}
+
+# Найти максимум в диапазоне
+func findMax(start: int, end: int) -> int {
+    var maxVal = start
+    var current = start
+    
+    while current <= end {
+        if current > maxVal {
+            maxVal = current
+        }
+        current = current + 1
+    }
+    
+    return maxVal
+}
+
+# Найти минимум в диапазоне
+func findMin(start: int, end: int) -> int {
+    var minVal = start
+    var current = start
+    
+    while current <= end {
+        if current < minVal {
+            minVal = current
+        }
+        current = current + 1
+    }
+    
+    return minVal
+}
+
+# Генерация последовательности чисел
+func range(start: int, end: int, step: int) -> int {
+    var current = start
+    var count = 0
+    
+    print("Диапазон от " + str(start) + " до " + str(end) + " с шагом " + str(step))
+    
+    while current <= end {
+        print("  " + str(current))
+        current = current + step
+        count = count + 1
+    }
+    
+    return count
+}
+
+# Подсчет элементов в диапазоне
+func countRange(start: int, end: int) -> int {
+    if end < start {
+        return 0
+    }
+    return end - start + 1
+}

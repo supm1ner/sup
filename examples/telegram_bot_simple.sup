@@ -1,0 +1,94 @@
+# Упрощенная версия Telegram бота на Sup
+# Демонстрирует основные возможности языка
+
+# Функция для приветствия
+func greet(name: string) -> string {
+    return "Привет, " + name + "! Я бот на Sup!"
+}
+
+# Функция для обработки команды
+func processCommand(command: string) -> string {
+    if command == "start" {
+        return "Добро пожаловать! Используйте команды: start, help, about"
+    }
+    
+    if command == "help" {
+        return "Доступные команды: start, help, about, echo"
+    }
+    
+    if command == "about" {
+        return "Я простой бот, написанный на языке программирования Sup!"
+    }
+    
+    return "Неизвестная команда: " + command
+}
+
+# Функция для эхо-ответа
+func echoMessage(message: string) -> string {
+    return "Вы написали: " + message
+}
+
+# Функция для подсчета длины сообщения
+func getMessageLength(message: string) -> int {
+    # В реальной реализации здесь была бы функция length()
+    # Для демонстрации возвращаем фиксированное значение
+    return 10
+}
+
+# Функция для обработки сообщения пользователя
+func handleUserMessage(username: string, message: string) -> int {
+    print("Получено сообщение от " + username)
+    print("Текст: " + message)
+    
+    var response = ""
+    
+    # Проверяем, является ли сообщение командой
+    if message == "start" {
+        response = processCommand("start")
+    } else {
+        if message == "help" {
+            response = processCommand("help")
+        } else {
+            if message == "about" {
+                response = processCommand("about")
+            } else {
+                # Обычное сообщение - делаем эхо
+                response = echoMessage(message)
+            }
+        }
+    }
+    
+    print("Ответ: " + response)
+    print("")
+    
+    return 0
+}
+
+# Симуляция работы бота
+func simulateBot() -> int {
+    print("=== Симуляция работы Telegram бота ===")
+    print("")
+    
+    # Симулируем несколько сообщений от пользователей
+    handleUserMessage("Алексей", "start")
+    handleUserMessage("Мария", "help")
+    handleUserMessage("Иван", "about")
+    handleUserMessage("Ольга", "Привет, бот!")
+    handleUserMessage("Петр", "Как дела?")
+    
+    return 0
+}
+
+# Главная функция
+func main() -> int {
+    print("╔════════════════════════════════════╗")
+    print("║  Telegram Bot на языке Sup v1.0   ║")
+    print("╚════════════════════════════════════╝")
+    print("")
+    
+    # Запускаем симуляцию
+    simulateBot()
+    
+    print("Бот завершил работу")
+    return 0
+}

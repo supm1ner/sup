@@ -1,0 +1,14 @@
+{
+  "iconDefinitions": {
+    "sup-file": {
+      "iconPath": "../icon.png"
+    }
+  },
+  "fileExtensions": {
+    "sup": "sup-file"
+  },
+  "file": "sup-file",
+  "languageIds": {
+    "sup": "sup-file"
+  }
+}

@@ -1,0 +1,310 @@
+# Тест стандартной библиотеки Sup
+# Демонстрация использования модулей string, math, array
+
+# ============================================
+# МАТЕМАТИЧЕСКИЕ ФУНКЦИИ (из lib/math.sup)
+# ============================================
+
+const PI = 3.14159265359
+const E = 2.71828182846
+
+func abs(x: float) -> float {
+    if x < 0.0 {
+        return x * -1.0
+    }
+    return x
+}
+
+func min(a: float, b: float) -> float {
+    if a < b {
+        return a
+    }
+    return b
+}
+
+func max(a: float, b: float) -> float {
+    if a > b {
+        return a
+    }
+    return b
+}
+
+func pow(base: float, exp: int) -> float {
+    var result = 1.0
+    var i = 0
+    
+    while i < exp {
+        result = result * base
+        i = i + 1
+    }
+    
+    return result
+}
+
+func sqrt(x: float) -> float {
+    if x < 0.0 {
+        print("Ошибка: квадратный корень из отрицательного числа")
+        return 0.0
+    }
+    
+    if x == 0.0 {
+        return 0.0
+    }
+    
+    var guess = x / 2.0
+    var epsilon = 0.00001
+    var iterations = 0
+    
+    while iterations < 20 {
+        var newGuess = (guess + x / guess) / 2.0
+        var diff = abs(newGuess - guess)
+        
+        if diff < epsilon {
+            return newGuess
+        }
+        
+        guess = newGuess
+        iterations = iterations + 1
+    }
+    
+    return guess
+}
+
+func factorial(n: int) -> int {
+    if n <= 1 {
+        return 1
+    }
+    
+    var result = 1
+    var i = 2
+    
+    while i <= n {
+        result = result * i
+        i = i + 1
+    }
+    
+    return result
+}
+
+func fibonacci(n: int) -> int {
+    if n <= 1 {
+        return n
+    }
+    
+    var prev = 0
+    var curr = 1
+    var i = 2
+    
+    while i <= n {
+        var next = prev + curr
+        prev = curr
+        curr = next
+        i = i + 1
+    }
+    
+    return curr
+}
+
+# ============================================
+# СТРОКОВЫЕ ФУНКЦИИ (из lib/string.sup)
+# ============================================
+
+func repeat(s: string, n: int) -> string {
+    var result = ""
+    var i = 0
+    
+    while i < n {
+        result = result + s
+        i = i + 1
+    }
+    
+    return result
+}
+
+func separator(character: string, length: int) -> string {
+    return repeat(character, length)
+}
+
+func header(text: string) -> string {
+    var line = repeat("=", 50)
+    print(line)
+    print(text)
+    print(line)
+    return text
+}
+
+# ============================================
+# ТЕСТЫ
+# ============================================
+
+func testMath() -> int {
+    header("ТЕСТ МАТЕМАТИЧЕСКИХ ФУНКЦИЙ")
+    print("")
+    
+    # Тест abs
+    var negNum = -15.5
+    var absResult = abs(negNum)
+    print("abs(" + str(negNum) + ") = " + str(absResult))
+    
+    # Тест min/max
+    var a = 10.0
+    var b = 25.0
+    print("min(" + str(a) + ", " + str(b) + ") = " + str(min(a, b)))
+    print("max(" + str(a) + ", " + str(b) + ") = " + str(max(a, b)))
+    
+    print("")
+    
+    # Тест pow
+    var base = 2.0
+    var exp = 10
+    var powResult = pow(base, exp)
+    print("pow(" + str(base) + ", " + str(exp) + ") = " + str(powResult))
+    
+    # Тест sqrt
+    var num = 16.0
+    var sqrtResult = sqrt(num)
+    print("sqrt(" + str(num) + ") = " + str(sqrtResult))
+    
+    var num2 = 2.0
+    var sqrtResult2 = sqrt(num2)
+    print("sqrt(" + str(num2) + ") = " + str(sqrtResult2))
+    
+    print("")
+    
+    # Тест factorial
+    var n = 5
+    var factResult = factorial(n)
+    print("factorial(" + str(n) + ") = " + str(factResult))
+    
+    var n2 = 7
+    var factResult2 = factorial(n2)
+    print("factorial(" + str(n2) + ") = " + str(factResult2))
+    
+    print("")
+    
+    # Тест fibonacci
+    print("Числа Фибоначчи:")
+    var i = 0
+    while i <= 10 {
+        var fib = fibonacci(i)
+        print("  fib(" + str(i) + ") = " + str(fib))
+        i = i + 1
+    }
+    
+    print("")
+    
+    # Константы
+    print("Математические константы:")
+    print("  PI = " + str(PI))
+    print("  E = " + str(E))
+    
+    return 0
+}
+
+func testString() -> int {
+    header("ТЕСТ СТРОКОВЫХ ФУНКЦИЙ")
+    print("")
+    
+    # Тест repeat
+    var star = "*"
+    var repeated = repeat(star, 20)
+    print("repeat('" + star + "', 20) = " + repeated)
+    
+    var dash = "-"
+    var repeated2 = repeat(dash, 30)
+    print("repeat('" + dash + "', 30) = " + repeated2)
+    
+    print("")
+    
+    # Тест separator
+    var sep1 = separator("=", 40)
+    print("Разделитель: " + sep1)
+    
+    var sep2 = separator("~", 35)
+    print("Разделитель: " + sep2)
+    
+    print("")
+    
+    # Создание рамки
+    var line1 = "╔" + repeat("═", 40) + "╗"
+    var line2 = "║" + repeat(" ", 40) + "║"
+    var line3 = "║  Пример красивой рамки из символов  ║"
+    var line4 = "╚" + repeat("═", 40) + "╝"
+    
+    print(line1)
+    print(line3)
+    print(line4)
+    
+    return 0
+}
+
+func testPractical() -> int {
+    header("ПРАКТИЧЕСКИЕ ПРИМЕРЫ")
+    print("")
+    
+    # Пример 1: Расчет площади круга
+    print("Пример 1: Площадь круга")
+    var radius = 5.0
+    var area = PI * radius * radius
+    print("  Радиус: " + str(radius))
+    print("  Площадь: " + str(area))
+    print("")
+    
+    # Пример 2: Расчет гипотенузы
+    print("Пример 2: Теорема Пифагора")
+    var sideA = 3.0
+    var sideB = 4.0
+    var sumSquares = sideA * sideA + sideB * sideB
+    var hypotenuse = sqrt(sumSquares)
+    print("  Катет A: " + str(sideA))
+    print("  Катет B: " + str(sideB))
+    print("  Гипотенуза: " + str(hypotenuse))
+    print("")
+    
+    # Пример 3: Комбинаторика
+    print("Пример 3: Количество перестановок")
+    var items = 5
+    var permutations = factorial(items)
+    print("  Элементов: " + str(items))
+    print("  Перестановок: " + str(permutations))
+    print("")
+    
+    # Пример 4: Прогрессия
+    print("Пример 4: Геометрическая прогрессия")
+    var start = 2.0
+    var ratio = 2.0
+    var i = 0
+    while i < 8 {
+        var term = start * pow(ratio, i)
+        print("  Член " + str(i) + ": " + str(term))
+        i = i + 1
+    }
+    
+    return 0
+}
+
+# ============================================
+# ГЛАВНАЯ ФУНКЦИЯ
+# ============================================
+
+func main() -> int {
+    print("╔════════════════════════════════════════════════╗")
+    print("║   Тест стандартной библиотеки Sup v1.0       ║")
+    print("╚════════════════════════════════════════════════╝")
+    print("")
+    
+    testMath()
+    print("")
+    
+    testString()
+    print("")
+    
+    testPractical()
+    
+    print("")
+    print("╔════════════════════════════════════════════════╗")
+    print("║            Все тесты завершены!               ║")
+    print("╚════════════════════════════════════════════════╝")
+    
+    return 0
+}

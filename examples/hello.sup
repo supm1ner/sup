@@ -1,0 +1,7 @@
+# Simple Hello World program in Sup
+
+func main() -> int {
+    var message = "Hello, Sup!"
+    print(message)
+    return 0
+}
